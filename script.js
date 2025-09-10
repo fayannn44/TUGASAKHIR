@@ -11,7 +11,7 @@ function showNotification(message, type = "success") {
   notif.innerText = message;
   document.body.appendChild(notif);
 
-  setTimeout(() => notif.classList.add("show"), 100);  
+  setTimeout(() => notif.classList.add("show"), 100);
   setTimeout(() => {
     notif.classList.remove("show");
     setTimeout(() => notif.remove(), 500);
@@ -65,6 +65,10 @@ function deleteData(id) {
 const saveBtn = document.getElementById("save-btn");
 if (saveBtn) {
   saveBtn.addEventListener("click", () => {
+    // 🔥 Tambah animasi klik
+    saveBtn.classList.add("clicked");
+    setTimeout(() => saveBtn.classList.remove("clicked"), 300);
+
     const nama = document.getElementById("nama-input").value.trim();
     const umur = document.getElementById("umur-input").value.trim();
     const alamat = document.getElementById("alamat-input").value.trim();
@@ -96,6 +100,10 @@ if (updateBtn) {
   }
 
   updateBtn.addEventListener("click", () => {
+    // 🔥 Animasi juga di update
+    updateBtn.classList.add("clicked");
+    setTimeout(() => updateBtn.classList.remove("clicked"), 300);
+
     item.nama = document.getElementById("edit-nama").value.trim();
     item.umur = document.getElementById("edit-umur").value.trim();
     item.alamat = document.getElementById("edit-alamat").value.trim();

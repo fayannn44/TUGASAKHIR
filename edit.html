@@ -1,46 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edit Data Pekerja</title>
+  <title>Edit Pekerja</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Header -->
   <header class="header">
     <h1>✏️ Edit Pekerja</h1>
-    <button onclick="window.location.href='index.html'" class="cancel-btn">⬅️ Kembali</button>
+    <button id="dark-toggle">🌙 Dark Mode</button>
   </header>
 
+  <!-- Container -->
   <div class="container">
     <div class="card">
-      <h2>Formulir Edit 📝</h2>
-      <div class="input-area">
-        <div class="input-wrapper"><span class="icon">👤</span>
-          <input type="text" id="edit-nama" placeholder="Nama...">
+      <h2>Form Edit Pekerja</h2>
+      <form id="edit-form">
+        
+        <div class="input-area">
+          <div class="input-wrapper">
+            <span class="icon">👤</span>
+            <input type="text" id="nama" name="nama" placeholder="Nama Pekerja" required>
+          </div>
+
+          <div class="input-wrapper">
+            <span class="icon">🎂</span>
+            <input type="number" id="umur" name="umur" placeholder="Umur" required>
+          </div>
+
+          <div class="input-wrapper">
+            <span class="icon">🏠</span>
+            <input type="text" id="alamat" name="alamat" placeholder="Alamat" required>
+          </div>
+
+          <div class="input-wrapper">
+            <span class="icon">💼</span>
+            <select id="pekerjaan" name="pekerjaan" required>
+              <option value="">Pilih Pekerjaan...</option>
+              <option value="Programmer">Programmer</option>
+              <option value="Desainer">Desainer</option>
+              <option value="Manajer">Manajer</option>
+              <option value="Guru">Guru</option>
+              <option value="Dokter">Dokter</option>
+            </select>
+          </div>
         </div>
-        <div class="input-wrapper"><span class="icon">🎂</span>
-          <input type="number" id="edit-umur" placeholder="Umur...">
+
+        <!-- Tombol -->
+        <div class="btn-group" style="margin-top:20px; justify-content:center;">
+          <button type="submit" class="edit-btn">💾 Update</button>
+          <button type="button" class="back-btn" onclick="window.location.href='index.html'">↩ Batal</button>
         </div>
-        <div class="input-wrapper"><span class="icon">🏠</span>
-          <input type="text" id="edit-alamat" placeholder="Alamat...">
-        </div>
-        <div class="input-wrapper"><span class="icon">💼</span>
-          <select id="edit-pekerjaan">
-            <option value="">Pilih Pekerjaan...</option>
-            <option value="Programmer">👨‍💻 Programmer</option>
-            <option value="Designer">🎨 Designer</option>
-            <option value="Dokter">🩺 Dokter</option>
-            <option value="Guru">📚 Guru</option>
-            <option value="Petani">🌾 Petani</option>
-            <option value="Lainnya">🔧 Lainnya</option>
-          </select>
-        </div>
-        <button id="update-btn" class="edit-btn">Simpan Perubahan</button>
-      </div>
+      </form>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    // Dark mode toggle
+    const darkToggle = document.getElementById("dark-toggle");
+    darkToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+    });
+
+    // Ambil data dari URL (index pekerja)
+    const params = new URLSearchParams(window.location.search);
+    const index = params.get("index");
+
+    let data = JSON.parse(localStorage.getItem("pekerja")) || [];
+
+    if (index !== null && data[index]) {
+      // Prefill data lama
+      document.getElementById("nama").value = data[index].nama;
+      document.getElementById("umur").value = data[index].umur;
+      document.getElementById("alamat").value = data[index].alamat;
+      document.getElementById("pekerjaan").value = data[index].pekerjaan;
+    }
+
+    // Update data
+    document.getElementById("edit-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      data[index] = {
+        nama: document.getElementById("nama").value,
+        umur: document.getElementById("umur").value,
+        alamat: document.getElementById("alamat").value,
+        pekerjaan: document.getElementById("pekerjaan").value,
+      };
+
+      localStorage.setItem("pekerja", JSON.stringify(data));
+      alert("✅ Data berhasil diperbarui!");
+      window.location.href = "index.html";
+    });
+  </script>
 </body>
 </html>

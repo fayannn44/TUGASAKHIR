@@ -27,9 +27,7 @@ body {
   animation: spin 1s linear infinite;
   margin-bottom: 15px;
 }
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+@keyframes spin { to { transform: rotate(360deg); } }
 .hidden { display: none; }
 
 /* ================= CONTAINER ================= */
@@ -42,7 +40,7 @@ body {
   padding: 20px;
 }
 .card {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.85);
   padding: 25px;
   border-radius: 16px;
   box-shadow: 0 6px 25px rgba(0,0,0,0.2);
@@ -53,7 +51,7 @@ body {
   from { transform: translateY(40px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
-h2, h1 {
+h1, h2 {
   text-align: center;
   color: #333;
 }
@@ -75,7 +73,8 @@ h2, h1 {
   left: 12px;
   font-size: 18px;
 }
-.input-wrapper input {
+.input-wrapper input,
+.input-wrapper select {
   width: 100%;
   padding: 14px 14px 14px 40px;
   border: 2px solid rgba(255,255,255,0.3);
@@ -86,11 +85,13 @@ h2, h1 {
   font-size: 16px;
   transition: all 0.4s ease;
   animation: slideIn 0.6s ease;
+  appearance: none;
 }
 .input-wrapper input::placeholder {
   color: rgba(0,0,0,0.5);
 }
-.input-wrapper input:focus {
+.input-wrapper input:focus,
+.input-wrapper select:focus {
   border-color: #007bff;
   box-shadow: 0 0 15px rgba(0,123,255,0.7);
   transform: scale(1.02);
@@ -101,49 +102,70 @@ h2, h1 {
   to { opacity: 1; transform: translateX(0); }
 }
 
-/* ================= BUTTON ================= */
+/* ================= BUTTON (UMUM) ================= */
 button {
-  padding: 12px 18px;
+  padding: 12px 20px;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
   font-weight: bold;
   font-size: 15px;
   letter-spacing: 1px;
-  transition: all 0.35s ease;
+  color: #fff;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
   box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
-#add-btn {
-  background: linear-gradient(135deg, #28a745, #20c997);
-  color: white;
+
+/* Ripple effect */
+button::after {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 0; height: 0;
+  background: rgba(255,255,255,0.5);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
 }
-#add-btn:hover {
-  transform: translateY(-3px) scale(1.07) rotate(-1deg);
-  box-shadow: 0 6px 22px rgba(32,201,151,0.7);
+button:active::after {
+  width: 220px;
+  height: 220px;
+  opacity: 0;
+}
+
+/* Hover */
+button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+/* Variasi Warna */
+.save-btn, .add-page-btn, #add-btn {
+  background: linear-gradient(135deg, #00c853, #b2ff59);
+}
+.save-btn:hover, .add-page-btn:hover, #add-btn:hover {
+  box-shadow: 0 0 20px rgba(0,200,83,0.6);
 }
 .edit-btn {
-  background: linear-gradient(135deg, #007bff, #00c6ff);
-  color: white;
+  background: linear-gradient(135deg, #2196f3, #21cbf3);
 }
 .edit-btn:hover {
-  transform: translateY(-3px) scale(1.07) rotate(1deg);
-  box-shadow: 0 6px 22px rgba(0,123,255,0.7);
+  box-shadow: 0 0 20px rgba(33,150,243,0.6);
 }
 .delete-btn {
-  background: linear-gradient(135deg, #dc3545, #ff6b6b);
-  color: white;
+  background: linear-gradient(135deg, #ff1744, #ff5252);
 }
 .delete-btn:hover {
-  transform: translateY(-3px) scale(1.07) rotate(-2deg);
-  box-shadow: 0 6px 22px rgba(220,53,69,0.7);
+  box-shadow: 0 0 20px rgba(255,23,68,0.6);
 }
-.cancel-btn {
-  background: linear-gradient(135deg, #6c757d, #adb5bd);
-  color: white;
+.cancel-btn, .back-btn {
+  background: linear-gradient(135deg, #757575, #bdbdbd);
 }
-.cancel-btn:hover {
-  transform: translateY(-3px) scale(1.07) rotate(2deg);
-  box-shadow: 0 6px 22px rgba(108,117,125,0.7);
+.cancel-btn:hover, .back-btn:hover {
+  box-shadow: 0 0 20px rgba(117,117,117,0.6);
 }
 
 /* ================= DATA LIST ================= */
@@ -179,33 +201,7 @@ button {
   outline: none;
 }
 
-/* ================= RESPONSIVE ================= */
-@media(max-width: 600px) {
-  .container { padding: 15px; }
-  .card { padding: 18px; }
-  button { font-size: 14px; padding: 10px; }
-  .input-wrapper input { font-size: 14px; }
-}
-.input-wrapper select {
-  width: 100%;
-  padding: 14px 14px 14px 40px;
-  border: 2px solid rgba(255,255,255,0.3);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(15px);
-  font-size: 16px;
-  color: #333;
-  transition: all 0.4s ease;
-  animation: slideIn 0.6s ease;
-  appearance: none;
-}
-.input-wrapper select:focus {
-  border-color: #ff5722;
-  box-shadow: 0 0 15px rgba(255,87,34,0.7);
-  transform: scale(1.02);
-  outline: none;
-}
-/* HEADER */
+/* ================= HEADER ================= */
 .header {
   display: flex;
   justify-content: space-between;
@@ -224,18 +220,37 @@ button {
   color: #333;
 }
 #dark-toggle {
-  background: linear-gradient(135deg, #343a40, #495057);
+  background: linear-gradient(135deg, #212121, #424242);
   color: white;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease;
 }
 #dark-toggle:hover {
-  background: linear-gradient(135deg, #212529, #343a40);
+  box-shadow: 0 0 20px rgba(255,255,255,0.2);
   transform: scale(1.05);
+}
+
+/* ================= NOTIFIKASI ================= */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: -400px;
+  padding: 15px 25px;
+  border-radius: 12px;
+  font-weight: bold;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: right 0.5s ease, opacity 0.5s ease;
+  opacity: 0;
+  z-index: 9999;
+}
+.notification.show {
+  right: 20px;
+  opacity: 1;
+}
+.notification.success {
+  background: linear-gradient(135deg, #28a745, #218838);
+}
+.notification.error {
+  background: linear-gradient(135deg, #dc3545, #c82333);
 }
 
 /* ================= DARK MODE ================= */
@@ -243,13 +258,8 @@ body.dark {
   background: linear-gradient(to right, #1f1f1f, #2c2c2c);
   color: #f8f9fa;
 }
-body.dark .header {
-  background: rgba(0,0,0,0.7);
-}
-body.dark h1, 
-body.dark h2 {
-  color: #f8f9fa;
-}
+body.dark .header { background: rgba(0,0,0,0.7); }
+body.dark h1, body.dark h2 { color: #f8f9fa; }
 body.dark .card {
   background: rgba(30,30,30,0.85);
   color: #f8f9fa;
@@ -268,178 +278,72 @@ body.dark .data-item {
   background: rgba(50,50,50,0.6);
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
-.center {
-  display: flex;
-  justify-content: center;
+
+/* ================= RESPONSIVE ================= */
+@media(max-width: 600px) {
+  .container { padding: 15px; }
+  .card { padding: 18px; }
+  button { font-size: 14px; padding: 10px; }
+  .input-wrapper input, .input-wrapper select { font-size: 14px; }
 }
+/* ================= FORM TITLE ================= */
+.card h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 25px;
+  color: #333;
+  position: relative;
+  animation: fadeDown 0.6s ease;
+}
+
+/* Garis tipis bawah judul */
+.card h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #007bff, #00c853);
+  margin: 10px auto 0;
+  border-radius: 3px;
+}
+
+/* Animasi masuk dari atas */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Dark mode untuk judul */
+body.dark .card h2 {
+  color: #f8f9fa;
+}
+body.dark .card h2::after {
+  background: linear-gradient(90deg, #21cbf3, #00e676);
+}
+/* ================= TOMBOL TAMBAH PEKERJA ================= */
 .add-page-btn {
-  background: linear-gradient(135deg, #28a745, #20c997);
-  color: white;
-  padding: 14px 20px;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
   font-size: 16px;
-  font-weight: bold;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  padding: 14px 28px;
+  border-radius: 14px;
+  display: inline-block;
+  animation: bounceIn 0.8s ease;
 }
+
+/* Hover efek glow */
 .add-page-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 5px 20px rgba(32,201,151,0.5);
-}
-/* ================= BUTTON ================= */
-button {
-  padding: 12px 18px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 15px;
-  letter-spacing: 1px;
-  transition: all 0.35s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  box-shadow: 0 0 18px rgba(0, 114, 255, 0.6);
+  transform: scale(1.07);
 }
 
-/* Kotak Add */
-#add-btn {
-  background: linear-gradient(135deg, #28a745, #20c997);
-  color: white;
-}
-#add-btn:hover {
-  transform: translateY(-3px) scale(1.07) rotate(-1deg);
-  box-shadow: 0 6px 22px rgba(32,201,151,0.7);
+/* Animasi masuk dari bawah */
+@keyframes bounceIn {
+  0% { transform: translateY(50px); opacity: 0; }
+  60% { transform: translateY(-10px); opacity: 1; }
+  100% { transform: translateY(0); }
 }
 
-/* Kotak Edit */
-.edit-btn {
-  background: linear-gradient(135deg, #007bff, #00c6ff);
-  color: white;
-}
-.edit-btn:hover {
-  transform: translateY(-3px) scale(1.07) rotate(1deg);
-  box-shadow: 0 6px 22px rgba(0,123,255,0.7);
-}
-
-/* Kotak Delete */
-.delete-btn {
-  background: linear-gradient(135deg, #dc3545, #ff6b6b);
-  color: white;
-}
-.delete-btn:hover {
-  transform: translateY(-3px) scale(1.07) rotate(-2deg);
-  box-shadow: 0 6px 22px rgba(220,53,69,0.7);
-}
-
-/* Kotak Cancel */
-.cancel-btn {
-  background: linear-gradient(135deg, #6c757d, #adb5bd);
-  color: white;
-}
-.cancel-btn:hover {
-  transform: translateY(-3px) scale(1.07) rotate(2deg);
-  box-shadow: 0 6px 22px rgba(108,117,125,0.7);
-}
-
-/* ================= ROUND BUTTON ================= */
-.round-btn {
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  font-weight: bold;
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-  transition: all 0.3s ease;
-  margin: 5px;
-}
-
-/* Add Bulat */
-.add-btn-round {
-  background: linear-gradient(135deg, #28a745, #20c997);
-}
-.add-btn-round:hover {
-  transform: scale(1.1) rotate(10deg);
-  box-shadow: 0 6px 20px rgba(32,201,151,0.6);
-}
-
-/* Edit Bulat */
-.edit-btn-round {
-  background: linear-gradient(135deg, #007bff, #00c6ff);
-}
-.edit-btn-round:hover {
-  transform: scale(1.1) rotate(-10deg);
-  box-shadow: 0 6px 20px rgba(0,123,255,0.6);
-}
-
-/* Delete Bulat */
-.delete-btn-round {
-  background: linear-gradient(135deg, #dc3545, #ff6b6b);
-}
-.delete-btn-round:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(220,53,69,0.6);
-}
-
-/* Dark Mode Tombol Bulat */
-body.dark .round-btn {
-  box-shadow: 0 4px 15px rgba(255,255,255,0.1);
-}
-/* === NOTIFIKASI CUSTOM === */
-.notification {
-  position: fixed;
-  top: 20px;
-  right: -400px;
-  padding: 15px 25px;
-  border-radius: 12px;
-  font-weight: bold;
-  color: #fff;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  transition: right 0.5s ease, opacity 0.5s ease;
-  opacity: 0;
-  z-index: 9999;
-}
-
-.notification.show {
-  right: 20px;
-  opacity: 1;
-}
-
-/* Warna berbeda sesuai tipe */
-.notification.success {
-  background: linear-gradient(135deg, #28a745, #218838);
-}
-
-.notification.error {
-  background: linear-gradient(135deg, #dc3545, #c82333);
-}
-/* === NOTIFIKASI CUSTOM === */
-.notification {
-  position: fixed;
-  top: 20px;
-  right: -400px;
-  padding: 15px 25px;
-  border-radius: 12px;
-  font-weight: bold;
-  color: #fff;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  transition: right 0.5s ease, opacity 0.5s ease;
-  opacity: 0;
-  z-index: 9999;
-}
-
-.notification.show {
-  right: 20px;
-  opacity: 1;
-}
-
-.notification.success {
-  background: linear-gradient(135deg, #28a745, #218838);
-}
-
-.notification.error {
-  background: linear-gradient(135deg, #dc3545, #c82333);
+/* Dark mode tombol tambah */
+body.dark .add-page-btn {
+  background: linear-gradient(135deg, #21cbf3, #2196f3);
 }
