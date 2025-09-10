@@ -3,30 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edit Data Pekerja</title>
+  <title>Tambah Data</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="header">
-    <h1>✏️ Edit Pekerja</h1>
+    <h1>➕ Tambah Pekerja</h1>
     <button onclick="window.location.href='index.html'" class="cancel-btn">⬅️ Kembali</button>
   </header>
 
   <div class="container">
     <div class="card">
-      <h2>Formulir Edit 📝</h2>
+      <h2>Isi Data Pekerja 📝</h2>
       <div class="input-area">
         <div class="input-wrapper"><span class="icon">👤</span>
-          <input type="text" id="edit-nama" placeholder="Nama...">
+          <input type="text" id="nama-input" placeholder="Masukkan Nama...">
         </div>
         <div class="input-wrapper"><span class="icon">🎂</span>
-          <input type="number" id="edit-umur" placeholder="Umur...">
+          <input type="number" id="umur-input" placeholder="Masukkan Umur...">
         </div>
         <div class="input-wrapper"><span class="icon">🏠</span>
-          <input type="text" id="edit-alamat" placeholder="Alamat...">
+          <input type="text" id="alamat-input" placeholder="Masukkan Tempat Tinggal...">
         </div>
         <div class="input-wrapper"><span class="icon">💼</span>
-          <select id="edit-pekerjaan">
+          <select id="pekerjaan-input">
             <option value="">Pilih Pekerjaan...</option>
             <option value="Programmer">👨‍💻 Programmer</option>
             <option value="Designer">🎨 Designer</option>
@@ -36,7 +36,7 @@
             <option value="Lainnya">🔧 Lainnya</option>
           </select>
         </div>
-        <button id="update-btn" class="edit-btn">Simpan Perubahan</button>
+        <button id="save-btn">Simpan</button>
       </div>
     </div>
   </div>

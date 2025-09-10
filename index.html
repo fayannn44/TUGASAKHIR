@@ -3,20 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data Pengguna</title>
+  <title>Data Pekerja</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
+  <!-- Loading Screen -->
+  <div id="loading">
+    <div class="spinner"></div>
+    <p>Memuat Data...</p>
+  </div>
 
-    <!-- Kotak Tambah Data -->
+  <!-- Header -->
+  <header class="header">
+    <h1>📊 Data Pekerja</h1>
+    <button id="dark-toggle">🌙 Dark Mode</button>
+  </header>
+
+  <div class="container hidden">
+    <!-- Tombol Tambah Data (kotak biasa) -->
+    <div class="card center">
+      <button id="go-add" class="add-page-btn">➕ Tambah Pekerja</button>
+    </div>
+
+    <!-- Kotak Pencarian -->
     <div class="card">
-      <h2>Tambah Data kerja 📝</h2>
+      <h2>Cari Pekerja 🔍</h2>
       <div class="input-area">
-        <input type="text" id="nama-input" placeholder="Masukkan Nama...">
-        <input type="number" id="umur-input" placeholder="Masukkan Umur...">
-        <input type="text" id="alamat-input" placeholder="Masukkan Tempat Tinggal...">
-        <button id="add-btn">Tambah</button>
+        <input type="text" id="search-input" placeholder="Cari nama atau pekerjaan...">
       </div>
     </div>
 
@@ -25,7 +38,6 @@
       <h2>Daftar Pekerja 📋</h2>
       <ul id="data-list"></ul>
     </div>
-
   </div>
 
   <script src="script.js"></script>

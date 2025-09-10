@@ -1,149 +1,445 @@
+/* ================= BASE ================= */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* ================= LOADING ================= */
+#loading {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px; height: 60px;
+  border: 6px solid #ddd;
+  border-top: 6px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.hidden { display: none; }
+
+/* ================= CONTAINER ================= */
+.container {
+  max-width: 750px;
+  margin: 70px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 20px;
+}
+.card {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+  animation: slideUp 0.6s ease;
+  backdrop-filter: blur(12px);
+}
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+h2, h1 {
+  text-align: center;
+  color: #333;
+}
+
+/* ================= INPUT ================= */
+.input-area {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 15px;
+}
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.input-wrapper .icon {
+  position: absolute;
+  left: 12px;
+  font-size: 18px;
+}
+.input-wrapper input {
+  width: 100%;
+  padding: 14px 14px 14px 40px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(15px);
+  color: #333;
+  font-size: 16px;
+  transition: all 0.4s ease;
+  animation: slideIn 0.6s ease;
+}
+.input-wrapper input::placeholder {
+  color: rgba(0,0,0,0.5);
+}
+.input-wrapper input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 15px rgba(0,123,255,0.7);
+  transform: scale(1.02);
+  outline: none;
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-25px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ================= BUTTON ================= */
+button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+  letter-spacing: 1px;
+  transition: all 0.35s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+#add-btn {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+}
+#add-btn:hover {
+  transform: translateY(-3px) scale(1.07) rotate(-1deg);
+  box-shadow: 0 6px 22px rgba(32,201,151,0.7);
+}
+.edit-btn {
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  color: white;
+}
+.edit-btn:hover {
+  transform: translateY(-3px) scale(1.07) rotate(1deg);
+  box-shadow: 0 6px 22px rgba(0,123,255,0.7);
+}
+.delete-btn {
+  background: linear-gradient(135deg, #dc3545, #ff6b6b);
+  color: white;
+}
+.delete-btn:hover {
+  transform: translateY(-3px) scale(1.07) rotate(-2deg);
+  box-shadow: 0 6px 22px rgba(220,53,69,0.7);
+}
+.cancel-btn {
+  background: linear-gradient(135deg, #6c757d, #adb5bd);
+  color: white;
+}
+.cancel-btn:hover {
+  transform: translateY(-3px) scale(1.07) rotate(2deg);
+  box-shadow: 0 6px 22px rgba(108,117,125,0.7);
+}
+
+/* ================= DATA LIST ================= */
+.data-item {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.6s ease-in-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+.data-info { margin-bottom: 10px; }
+.btn-group { display: flex; gap: 8px; }
+
+/* ================= SEARCH INPUT ================= */
+#search-input {
+  padding: 14px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  font-size: 16px;
+  transition: 0.3s;
+}
+#search-input:focus {
+  border-color: #ff9800;
+  box-shadow: 0 0 12px rgba(255,152,0,0.7);
+  outline: none;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width: 600px) {
+  .container { padding: 15px; }
+  .card { padding: 18px; }
+  button { font-size: 14px; padding: 10px; }
+  .input-wrapper input { font-size: 14px; }
+}
+.input-wrapper select {
+  width: 100%;
+  padding: 14px 14px 14px 40px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(15px);
+  font-size: 16px;
+  color: #333;
+  transition: all 0.4s ease;
+  animation: slideIn 0.6s ease;
+  appearance: none;
+}
+.input-wrapper select:focus {
+  border-color: #ff5722;
+  box-shadow: 0 0 15px rgba(255,87,34,0.7);
+  transform: scale(1.02);
+  outline: none;
+}
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header h1 {
+  margin: 0;
+  font-size: 22px;
+  color: #333;
+}
+#dark-toggle {
+  background: linear-gradient(135deg, #343a40, #495057);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+#dark-toggle:hover {
+  background: linear-gradient(135deg, #212529, #343a40);
+  transform: scale(1.05);
+}
+
+/* ================= DARK MODE ================= */
+body.dark {
+  background: linear-gradient(to right, #1f1f1f, #2c2c2c);
+  color: #f8f9fa;
+}
+body.dark .header {
+  background: rgba(0,0,0,0.7);
+}
+body.dark h1, 
+body.dark h2 {
+  color: #f8f9fa;
+}
+body.dark .card {
+  background: rgba(30,30,30,0.85);
+  color: #f8f9fa;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+}
+body.dark input,
+body.dark select {
+  background: rgba(255,255,255,0.08);
+  color: #f8f9fa;
+  border: 2px solid rgba(255,255,255,0.2);
+}
+body.dark input::placeholder {
+  color: rgba(200,200,200,0.6);
+}
+body.dark .data-item {
+  background: rgba(50,50,50,0.6);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.center {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  margin: 0;
-  padding: 20px;
-  background-color: skyblue;
 }
-
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 600px;
-}
-
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-  margin-top: 0;
-  color: #333;
-  text-align: center;
-}
-
-.input-area {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.input-area input {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-button {
-  margin-top: 5px;
-  padding: 8px 14px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-#add-btn {
-  background-color: #28a745;
+.add-page-btn {
+  background: linear-gradient(135deg, #28a745, #20c997);
   color: white;
-}
-
-#add-btn:hover {
-  background-color: #218838;
-}
-
-.edit-btn {
-  background-color: #007bff;
-  color: white;
-  margin-right: 5px;
-}
-
-.edit-btn:hover {
-  background-color: #0069d9;
-}
-
-.delete-btn {
-  background-color: #dc3545;
-  color: white;
-}
-
-.delete-btn:hover {
-  background-color: #c82333;
-}
-
-.data-item {
-  padding: 12px;
-  border-bottom: 1px solid #ddd;
-}
-
-.data-info {
-  margin-bottom: 8px;
-}
-#update-btn {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 10px;
-  cursor: pointer;
-}
-
-#update-btn:hover {
-  background-color: #0069d9;
-}
-
-.container {
-  background: white;
-  padding: 25px;
+  padding: 14px 20px;
+  font-size: 16px;
+  font-weight: bold;
   border-radius: 10px;
-  width: 500px;
-  margin: 50px auto; /* biar ketengah */
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-  padding: 100px;
-  
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.input-area {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-#update-btn {
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 10px;
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+.add-page-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(32,201,151,0.5);
+}
+/* ================= BUTTON ================= */
+button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+  letter-spacing: 1px;
+  transition: all 0.35s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
 
-#update-btn:hover {
-  background: #0056b3;
+/* Kotak Add */
+#add-btn {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+}
+#add-btn:hover {
+  transform: translateY(-3px) scale(1.07) rotate(-1deg);
+  box-shadow: 0 6px 22px rgba(32,201,151,0.7);
 }
 
+/* Kotak Edit */
+.edit-btn {
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  color: white;
+}
+.edit-btn:hover {
+  transform: translateY(-3px) scale(1.07) rotate(1deg);
+  box-shadow: 0 6px 22px rgba(0,123,255,0.7);
+}
+
+/* Kotak Delete */
+.delete-btn {
+  background: linear-gradient(135deg, #dc3545, #ff6b6b);
+  color: white;
+}
+.delete-btn:hover {
+  transform: translateY(-3px) scale(1.07) rotate(-2deg);
+  box-shadow: 0 6px 22px rgba(220,53,69,0.7);
+}
+
+/* Kotak Cancel */
 .cancel-btn {
-  background: #dc3545;
+  background: linear-gradient(135deg, #6c757d, #adb5bd);
   color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 10px;
-  cursor: pointer;
+}
+.cancel-btn:hover {
+  transform: translateY(-3px) scale(1.07) rotate(2deg);
+  box-shadow: 0 6px 22px rgba(108,117,125,0.7);
 }
 
-.cancel-btn:hover {
-  background: #b02a37;
+/* ================= ROUND BUTTON ================= */
+.round-btn {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  transition: all 0.3s ease;
+  margin: 5px;
+}
+
+/* Add Bulat */
+.add-btn-round {
+  background: linear-gradient(135deg, #28a745, #20c997);
+}
+.add-btn-round:hover {
+  transform: scale(1.1) rotate(10deg);
+  box-shadow: 0 6px 20px rgba(32,201,151,0.6);
+}
+
+/* Edit Bulat */
+.edit-btn-round {
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+}
+.edit-btn-round:hover {
+  transform: scale(1.1) rotate(-10deg);
+  box-shadow: 0 6px 20px rgba(0,123,255,0.6);
+}
+
+/* Delete Bulat */
+.delete-btn-round {
+  background: linear-gradient(135deg, #dc3545, #ff6b6b);
+}
+.delete-btn-round:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(220,53,69,0.6);
+}
+
+/* Dark Mode Tombol Bulat */
+body.dark .round-btn {
+  box-shadow: 0 4px 15px rgba(255,255,255,0.1);
+}
+/* === NOTIFIKASI CUSTOM === */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: -400px;
+  padding: 15px 25px;
+  border-radius: 12px;
+  font-weight: bold;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: right 0.5s ease, opacity 0.5s ease;
+  opacity: 0;
+  z-index: 9999;
+}
+
+.notification.show {
+  right: 20px;
+  opacity: 1;
+}
+
+/* Warna berbeda sesuai tipe */
+.notification.success {
+  background: linear-gradient(135deg, #28a745, #218838);
+}
+
+.notification.error {
+  background: linear-gradient(135deg, #dc3545, #c82333);
+}
+/* === NOTIFIKASI CUSTOM === */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: -400px;
+  padding: 15px 25px;
+  border-radius: 12px;
+  font-weight: bold;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: right 0.5s ease, opacity 0.5s ease;
+  opacity: 0;
+  z-index: 9999;
+}
+
+.notification.show {
+  right: 20px;
+  opacity: 1;
+}
+
+.notification.success {
+  background: linear-gradient(135deg, #28a745, #218838);
+}
+
+.notification.error {
+  background: linear-gradient(135deg, #dc3545, #c82333);
 }
